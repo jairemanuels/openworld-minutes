@@ -4,7 +4,7 @@ import { normalizeSegments, formatClock } from './format.js';
 
 export const PROVIDERS = {
   openai: { label: 'OpenAI-compatible', baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o-mini' },
-  anthropic: { label: 'Anthropic', baseUrl: 'https://api.anthropic.com/v1', model: 'claude-3-5-haiku-latest' },
+  anthropic: { label: 'Anthropic', baseUrl: 'https://api.anthropic.com/v1', model: 'claude-haiku-4-5' },
 };
 
 const SYSTEM = `You are a precise meeting-notes assistant. You receive a timestamped meeting transcript (Dutch or English).

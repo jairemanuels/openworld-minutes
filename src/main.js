@@ -402,7 +402,7 @@ async function toggleRecording() {
   try {
     await rec.start({ includeSystem: settings.includeSystem });
   } catch (err) {
-    toast(err.name === 'NotAllowedError' ? 'Microphone permission was denied' : err.message, true);
+    toast(err.name === 'NotAllowedError' ? 'Microphone permission was denied' : err.name === 'NotFoundError' ? 'No microphone found. Connect one, or upload a recording instead.' : err.message, true);
     return;
   }
   state.recorder = rec;
