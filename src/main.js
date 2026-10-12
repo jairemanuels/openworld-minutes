@@ -75,6 +75,10 @@ async function onWorkerMessage(e) {
     job.modelReady = true;
     job.device = m.device;
     renderProgress();
+  } else if (m.type === 'plan') {
+    job.total = m.total;
+    job.index = 0;
+    renderProgress();
   } else if (m.type === 'language') {
     const meeting = state.liveMeeting;
     if (meeting) {
@@ -721,7 +725,7 @@ function renderProgress() {
     <div class="prow"><span>${esc(job.status || 'Working')}</span><button class="btn btn-sm btn-ghost" id="stopJob">Stop</button></div>
     <div class="prow" style="margin-top:8px"><span>Model ${job.modelReady ? 'ready' : 'download'}</span><span>${job.modelReady ? esc(job.device.toUpperCase()) : job.modelTotal ? `${mb(job.modelLoaded)} / ${mb(job.modelTotal)} MB` : 'checking cache'}</span></div>
     <div class="pbar"><div style="width:${job.modelReady ? 100 : modelPct}%"></div></div>
-    <div class="prow" style="margin-top:8px"><span>Transcription</span><span>${job.total ? `part ${Math.min(job.index + 1, job.total)} of ${job.total}${job.index ? ` / ${Math.round(tPct)}%` : ''}` : 'waiting'}</span></div>
+    <div class="prow" style="margin-top:8px"><span>Transcription</span><span>${job.total ? `part ${Math.min(job.index + 1, job.total)} of ${job.total} / ${Math.round(tPct)}%` : 'waiting'}</span></div>
     <div class="pbar accent ${job.modelReady && job.index < (job.total || 1) ? 'indeterminate' : ''}"><div style="width:${tPct}%"></div></div>
     <p class="hint" style="margin:8px 0 0">The first run downloads the model and caches it in your browser. Keep this tab open; the transcript fills in as parts finish.</p>
   </section>`;

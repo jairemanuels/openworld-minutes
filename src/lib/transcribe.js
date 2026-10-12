@@ -125,9 +125,10 @@ export async function detectLanguage(transcriber, audio, TensorCtor, candidates 
  * class is supplied) and then pinned for every chunk.
  * @param {{language?:string, segmentS?:number, onSegment?:Function, shouldStop?:Function, Tensor?:Function, onLanguage?:Function}} opts
  */
-export async function transcribeAudio(transcriber, audio, { language = 'auto', segmentS = 120, onSegment, shouldStop, Tensor, onLanguage } = {}) {
+export async function transcribeAudio(transcriber, audio, { language = 'auto', segmentS = 120, onSegment, shouldStop, Tensor, onLanguage, onPlan } = {}) {
   const sr = TARGET_SAMPLE_RATE;
   const plan = planSegments(audio.length, { sampleRate: sr, segmentS, samples: audio });
+  if (onPlan) onPlan({ total: plan.length, durationS: audio.length / sr });
   const all = [];
   let lang = language && language !== 'auto' ? language : null;
   let detection = null;

@@ -80,6 +80,7 @@ self.onmessage = async (e) => {
         language: msg.language,
         segmentS: 120,
         Tensor,
+        onPlan: (p) => self.postMessage({ type: 'plan', ...p }),
         onLanguage: (d) => self.postMessage({ type: 'language', ...d }),
         shouldStop: () => stopRequested,
         onSegment: (p) => self.postMessage({ type: 'segment', ...p }),
